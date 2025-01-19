@@ -1,12 +1,14 @@
-package concept.githubusersearch.ui.details
+package com.bambang.githubsearch.view.detail
 
 import androidx.lifecycle.ViewModel
-import concept.githubusersearch.dao.User
-import concept.githubusersearch.datamodel.UserLocalModel
-import concept.githubusersearch.datamodel.UserRemoteModel
-import concept.githubusersearch.ui.ext.*
+import com.bambang.githubsearch.data.UserLocalModel
+import com.bambang.githubsearch.data.UserRemoteModel
+import com.bambang.githubsearch.ext.ProfileLoaded
+import com.bambang.githubsearch.ext.StateLiveData
+import com.bambang.githubsearch.ext.StateProgress
+import com.bambang.githubsearch.ext.UserLoaded
+import io.reactivex.android.schedulers.AndroidSchedulers
 import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject

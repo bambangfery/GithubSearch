@@ -1,14 +1,11 @@
-package concept.githubusersearch.ui.details
+package com.bambang.githubsearch.view.detail
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import concept.githubusersearch.R
-import concept.githubusersearch.dao.Repo
-import concept.githubusersearch.ui.ext.gone
-import concept.githubusersearch.ui.ext.show
-import kotlinx.android.synthetic.main.list_item_repo.view.*
+import com.bambang.githubsearch.R
+import com.bambang.githubsearch.data.entity.Repo
 
 /**
  * Recycler adapter for Repo List in [DetailsFragment]
