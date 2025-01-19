@@ -11,17 +11,15 @@ import com.bambang.githubsearch.ext.StateIdle
 import com.bambang.githubsearch.ext.StateLiveData
 import com.bambang.githubsearch.ext.StateProgress
 import com.bambang.githubsearch.ext.UsersLoaded
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val userLocalModel: UserLocalModel,
-    private val userRemoteModel: UserRemoteModel
-) : ViewModel() {
+class SearchViewModel @Inject constructor() : ViewModel() {
+
+    @Inject lateinit var userLocalModel: UserLocalModel
+    @Inject lateinit var userRemoteModel: UserRemoteModel
 
     val state = StateLiveData(StateIdle)
 

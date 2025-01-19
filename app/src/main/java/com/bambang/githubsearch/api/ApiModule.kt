@@ -3,10 +3,9 @@ package com.bambang.githubsearch.api
 import com.bambang.githubsearch.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -18,7 +17,6 @@ import javax.inject.Singleton
 
 
 @Module
-@InstallIn(SingletonComponent::class)
 class ApiModule {
 
     private val baseUrl = "https://api.github.com/"
@@ -33,7 +31,7 @@ class ApiModule {
     fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 

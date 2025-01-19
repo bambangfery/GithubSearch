@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bambang.githubsearch.MainActivity
 import com.bambang.githubsearch.R
 import com.bambang.githubsearch.data.UserLocalModel
 import com.bambang.githubsearch.data.entity.User
@@ -26,20 +30,18 @@ import com.bambang.githubsearch.ext.message
 import com.bambang.githubsearch.ext.progress
 import com.bambang.githubsearch.ext.showError
 import com.bambang.githubsearch.viewmodel.SearchViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
+const val QUERY_KEY = "QUERY_KEY"
+
 class SearchFragment : Fragment() {
-    @Inject
-    lateinit var userLocalModel: UserLocalModel
-    @Inject
-    lateinit var factory: ViewModelFactory
-    private val viewModel: SearchViewModel by viewModels()
+
+    @Inject lateinit var factory: ViewModelFactory
+    private lateinit var viewModel: SearchViewModel
     lateinit var binding: FragmentSearchBinding
     private val adapter = UserListAdapter {
 //        findNavController().navigate(
-//
+//            SearchFragmentDirections.actionSearchFragmentToDetailsFragment(it)
 //        )
     }
 
@@ -50,6 +52,11 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_search,
+            container, false
+        )
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -64,6 +71,18 @@ class SearchFragment : Fragment() {
                 viewModel.search(it)
                 activity?.hideKeyboard()
             })
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as MainActivity).mainComponent.inject(this)
+        viewModel = ViewModelProviders.of(this, factory).get(SearchViewModel::class.java)
+        viewModel.state.observe(viewLifecycleOwner, Observer { onStateChanged(it) })
+        if (savedInstanceState == null) {
+            viewModel.restoreLastQuery()
+        } else {
+            savedInstanceState.getString(QUERY_KEY)?.let { viewModel.search(it) }
         }
     }
 

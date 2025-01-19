@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.dagger.hilt.android)
+//    alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kpt.android)
-    kotlin("kapt")
+//    kotlin("kapt")
+    alias(libs.plugins.navigation.safeargs)
 }
 
 android {
@@ -50,7 +51,6 @@ kapt {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation (libs.androidx.appcompat)
     implementation (libs.material)
     implementation (libs.androidx.constraintlayout)
@@ -64,14 +64,17 @@ dependencies {
     // Navigation
     implementation (libs.androidx.navigation.fragment.ktx)
     implementation (libs.androidx.navigation.ui.ktx)
+    implementation (libs.dagger)
+    kapt (libs.dagger.compiler)
     // Hilt
-    implementation (libs.dagger.hilt.android)
-    kapt (libs.hilt.compiler)
-    implementation(libs.androidx.hilt.lifecycle.viewmodel)
+//    implementation (libs.dagger.hilt.android)
+//    kapt (libs.hilt.compiler)
+//    implementation(libs.androidx.hilt.lifecycle.viewmodel)
     // retrofit
     implementation (libs.retrofit)
     implementation (libs.adapter.rxjava)
     implementation (libs.converter.gson)
+    implementation (libs.jakewharton.retrofit2.kotlin.coroutines.adapter)
     implementation (libs.logging.interceptor)
     // kotlin-coroutines
     implementation (libs.kotlinx.coroutines.core)
@@ -80,7 +83,10 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler) // Untuk kode yang di-generate
     // Lifecycle ViewModel and LiveData
+    implementation (libs.androidx.lifecycle.runtime)
     implementation (libs.androidx.lifecycle.livedata.ktx)
+    implementation (libs.androidx.lifecycle.extensions)
+    annotationProcessor (libs.androidx.lifecycle.compiler)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.rxandroid)
     implementation (libs.circleimageview)

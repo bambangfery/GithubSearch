@@ -32,17 +32,17 @@ class UserLocalModel @Inject constructor(
         }
     }
 
-    suspend fun getUsers(query: String): List<User> {
+     fun getUsers(query: String): List<User> {
         val dbQuery = queriesDao.findQueryByText(query) ?: return emptyList()
         queriesDao.insertOrReplace(dbQuery.apply { execDate = System.currentTimeMillis() })
         return userDao.findUsersByQuery(query)
     }
 
-    suspend fun getLastQuery(): String {
+     fun getLastQuery(): String {
         return queriesDao.getLastQueries()?.que ?: ""
     }
 
-    suspend fun saveProfile(profile: ProfileResponse) {
+     fun saveProfile(profile: ProfileResponse) {
         val user = userDao.findUserByServerId(profile.id) ?: return
         userDao.insertOrReplace(user.apply {
             name = profile.name

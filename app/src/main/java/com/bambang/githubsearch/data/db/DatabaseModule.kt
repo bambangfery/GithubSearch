@@ -2,6 +2,8 @@ package com.bambang.githubsearch.data.db
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.bambang.githubsearch.data.UserLocalModel
 import com.bambang.githubsearch.data.dao.QueriesDao
 import com.bambang.githubsearch.data.dao.Query2UserDao
@@ -9,23 +11,31 @@ import com.bambang.githubsearch.data.dao.RepoDao
 import com.bambang.githubsearch.data.dao.UserDao
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
+class DatabaseModule(private val context: Context) {
+
+    @Singleton
+    @Provides
+    fun provideContext(): Context = context
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+    fun provideDatabase(): AppDatabase {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
             "github_search_database"
-        ).build()
+        )
+            .allowMainThreadQueries()
+            .addCallback(object : RoomDatabase.Callback() {
+                override fun onOpen(db: SupportSQLiteDatabase) {
+                    super.onOpen(db)
+                    db.execSQL("PRAGMA foreign_keys=ON;")  // Aktifkan foreign key
+                }
+            })
+            .build()
     }
 
     @Provides

@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 /**
  * Recycler adapter for User List in [SearchFragment]
  */
-class UserListAdapter(private val onItemClick: (Int?) -> Unit) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+class UserListAdapter(private val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
     private val items = ArrayList<User>()
     lateinit var binding: ListItemUserBinding

@@ -15,12 +15,12 @@ import rx.Observable
 interface ApiService {
 
     @GET("search/users")
-    fun getUsers(@Query("q") query: String): Response<UsersResponse>
+    suspend fun getUsers(@Query("q") query: String): Response<UsersResponse>
 
     @GET("users/{login}")
-    fun getProfile(@Path("login") login: String): Response<ProfileResponse>
+    suspend fun getProfile(@Path("login") login: String): Response<ProfileResponse>
 
     @GET("users/{login}/repos")
-    fun getRepos(@Path("login") login: String): Response<List<RepoEntry>>
+    suspend fun getRepos(@Path("login") login: String): Response<List<RepoEntry>>
 
 }

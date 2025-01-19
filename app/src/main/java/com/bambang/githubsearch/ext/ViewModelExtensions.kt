@@ -37,12 +37,25 @@ class StateLiveData(state: ViewModelState = StateIdle) : MutableLiveData<ViewMod
 
 class ViewModelFactory @Inject constructor(
     private val searchViewModel: SearchViewModel,
-//    private val detailsViewModel: DetailsViewModel
+    private val detailsViewModel: DetailsViewModel
 ) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    fun <T : ViewModel?> create(modelClass: Class<T>): T = when {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T  = when {
         modelClass.isInstance(searchViewModel) -> searchViewModel as T
-//        modelClass.isInstance(detailsViewModel) -> detailsViewModel as T
+        modelClass.isInstance(detailsViewModel) -> detailsViewModel as T
         else -> throw RuntimeException("Unknown ViewModel, inject it in constructor")
     }
 }
+
+//class ViewModelFactory @Inject constructor(
+//    private val userLocalModel: UserLocalModel,
+//    private val userRemoteModel: UserRemoteModel
+//) : ViewModelProvider.Factory {
+//
+//    @Suppress("UNCHECKED_CAST")
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        return when (modelClass) {
+//            SearchViewModel::class.java -> SearchViewModel(userLocalModel, userRemoteModel) as T
+//            else -> throw IllegalArgumentException("Unknown ViewModel class")
+//        }
+//    }
+//}

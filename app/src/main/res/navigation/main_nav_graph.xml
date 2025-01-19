@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list_snack_nav_graph"
+    android:id="@+id/search_nav_graph"
     app:startDestination="@id/searchFragment">
 
     <fragment
@@ -10,19 +10,7 @@
         android:name="com.bambang.githubsearch.view.search.SearchFragment"
         android:label="search_fragment"
         tools:layout="@layout/fragment_search">
-        <action
-            android:id="@+id/action_searchFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.bambang.githubsearch.view.detail.DetailsFragment"
-        android:label="DetailsFragment">
-        <argument
-            android:name="userId"
-            app:argType="integer" />
-
-    </fragment>
 
 </navigation>
