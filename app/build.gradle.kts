@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kpt.android)
+    alias(libs.plugins.dagger.hilt.android)
+    kotlin("kapt")
 }
 
 android {
@@ -35,25 +37,52 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
-        compose = true
+        buildConfig = true
+        viewBinding = true
+        dataBinding = true
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation (libs.androidx.appcompat)
+    implementation (libs.material)
+    implementation (libs.androidx.constraintlayout)
+    implementation (libs.androidx.databinding.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Glide
+    implementation (libs.glide)
+    // Navigation
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
+    // Hilt
+    implementation (libs.dagger.hilt.android)
+    kapt (libs.hilt.compiler)
+    implementation(libs.androidx.hilt.lifecycle.viewmodel)
+    // retrofit
+    implementation (libs.retrofit)
+    implementation (libs.adapter.rxjava)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
+    // kotlin-coroutines
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+    //room
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler) // Untuk kode yang di-generate
+    // Lifecycle ViewModel and LiveData
+    implementation (libs.androidx.lifecycle.livedata.ktx)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.rxandroid)
+    implementation (libs.circleimageview)
+    implementation (libs.kotlinx.coroutines.rx2)
 }
