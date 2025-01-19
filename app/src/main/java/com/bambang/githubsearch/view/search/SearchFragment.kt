@@ -17,6 +17,7 @@ import com.bambang.githubsearch.ext.SearchRestored
 import com.bambang.githubsearch.ext.StateError
 import com.bambang.githubsearch.ext.StateProgress
 import com.bambang.githubsearch.ext.UsersLoaded
+import com.bambang.githubsearch.ext.ViewModelFactory
 import com.bambang.githubsearch.ext.ViewModelState
 import com.bambang.githubsearch.ext.empty
 import com.bambang.githubsearch.ext.hideKeyboard
@@ -32,12 +33,14 @@ import javax.inject.Inject
 class SearchFragment : Fragment() {
     @Inject
     lateinit var userLocalModel: UserLocalModel
+    @Inject
+    lateinit var factory: ViewModelFactory
     private val viewModel: SearchViewModel by viewModels()
     lateinit var binding: FragmentSearchBinding
     private val adapter = UserListAdapter {
-        findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToDetailsFragment(it)
-        )
+//        findNavController().navigate(
+//
+//        )
     }
 
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bambang.githubsearch.data.entity.User
 import com.bambang.githubsearch.viewmodel.SearchViewModel
-import concept.githubusersearch.ui.details.DetailsViewModel
+import com.bambang.githubsearch.view.detail.DetailsViewModel
 import java.lang.RuntimeException
 import javax.inject.Inject
 
@@ -34,17 +34,15 @@ class StateLiveData(state: ViewModelState = StateIdle) : MutableLiveData<ViewMod
     }
 }
 
-/**
- * Provide instance of [SearchViewModel] or [DetailsViewModel]
- */
+
 class ViewModelFactory @Inject constructor(
     private val searchViewModel: SearchViewModel,
-    private val detailsViewModel: DetailsViewModel
+//    private val detailsViewModel: DetailsViewModel
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     fun <T : ViewModel?> create(modelClass: Class<T>): T = when {
         modelClass.isInstance(searchViewModel) -> searchViewModel as T
-        modelClass.isInstance(detailsViewModel) -> detailsViewModel as T
+//        modelClass.isInstance(detailsViewModel) -> detailsViewModel as T
         else -> throw RuntimeException("Unknown ViewModel, inject it in constructor")
     }
 }
