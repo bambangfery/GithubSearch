@@ -35,7 +35,6 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModels()
     lateinit var binding: FragmentSearchBinding
     private val adapter = UserListAdapter {
-//        showUserDetails(it)
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailsFragment(it)
         )
@@ -84,7 +83,6 @@ class SearchFragment : Fragment() {
         adapter.setItems(users)
     }
 
-    private fun showUserDetails(userId: Int) = activity?.showDetailsFragment(userId)
 }
 
 class QueryTextListener(private val action: (String) -> Unit) : SearchView.OnQueryTextListener {
